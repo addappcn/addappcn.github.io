@@ -1,0 +1,1077 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="GJ8KqHtXsEaJHBfP-vL5MPX46zWgk319PNAD1rongnk" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一、概述1. 四线格与基线  小时候，我们在刚开始学习写字母时，用的本子是四线格的，我们必须把字母按照规则写在四线格内。  比如：">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义控件之绘图篇：drawText详解">
+<meta property="og:url" content="http://addapp.cn/2017/03/07/Android自定义控件之drawText详解/index.html">
+<meta property="og:site_name" content="后来者matt">
+<meta property="og:description" content="一、概述1. 四线格与基线  小时候，我们在刚开始学习写字母时，用的本子是四线格的，我们必须把字母按照规则写在四线格内。  比如：">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/abcdef.jpg">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/drawtext_baseline.jpg">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/drawtext_baseline_point.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-07-17-10-02.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/drawtext_baseline_point_mark.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-07-17-10-02.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-08-11-29-39.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-08-11-30-29.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-08-11-42-14.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170309_202149.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170309_203930.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170309_202149.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-09-19-55-43.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-15-18-17.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170310_112242.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170310_145530.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-15-18-17.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/snipaste_20170310_155716.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-15-52-50.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/snipaste_20170310_163121.png">
+<meta property="og:image" content="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-16-38-27.png">
+<meta property="og:updated_time" content="2017-03-10T09:02:24.850Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义控件之绘图篇：drawText详解">
+<meta name="twitter:description" content="一、概述1. 四线格与基线  小时候，我们在刚开始学习写字母时，用的本子是四线格的，我们必须把字母按照规则写在四线格内。  比如：">
+<meta name="twitter:image" content="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/abcdef.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://addapp.cn/2017/03/07/Android自定义控件之drawText详解/"/>
+
+
+
+
+
+  <title>自定义控件之绘图篇：drawText详解 | 后来者matt</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-89790151-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4898f83b8573ee8f4e66c13ce7d79482";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">后来者matt</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">命运掌握在自己手中。要么你驾驭生命，要么生命驾驭你，你的心态决定你是坐骑还是骑手。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://addapp.cn/2017/03/07/Android自定义控件之drawText详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="matt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="后来者matt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                自定义控件之绘图篇：drawText详解
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-07T14:15:21+08:00">
+                2017-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/07/Android自定义控件之drawText详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/07/Android自定义控件之drawText详解/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a><font color="#00ACC1">一、概述<font></font></font></h2><h4 id="1-四线格与基线"><a href="#1-四线格与基线" class="headerlink" title="1. 四线格与基线"></a><font color="#01579B">1. 四线格与基线<font></font></font></h4><p>  小时候，我们在刚开始学习写字母时，用的本子是四线格的，我们必须把字母按照规则写在四线格内。<br>  比如：</p>
+<p>  <img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/abcdef.jpg" alt="26英文字母"><br>  <a id="more"></a></p>
+<p>  那么问题来了，在canvas在利用drawText绘制文字时，也是有规则的，这个规则就是baseline（基线）！<br>我们先来看一下什么是基线：</p>
+<p>  <img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/drawtext_baseline.jpg" alt="基线"></p>
+<p>  对比以上两图，可见基线就是四线格中的第三条线！也就是说，只要基线的位置定了，那文字的位置必然是定了的！</p>
+<h4 id="2-canvas-drawText"><a href="#2-canvas-drawText" class="headerlink" title="2. canvas.drawText()"></a><font color="#01579B">2. canvas.drawText()<font></font></font></h4><h5 id="（1）canvas-drawText-与基线"><a href="#（1）canvas-drawText-与基线" class="headerlink" title="（1）canvas.drawText()与基线"></a><font color="#388E3C">（1）canvas.drawText()与基线<font></font></font></h5><p>下面我们来看看canvas.drawText()这个函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* text:要绘制的文字</div><div class="line">* x：绘制原点x坐标</div><div class="line">* y：绘制原点y坐标</div><div class="line">* paint:用来做画的画笔</div><div class="line">*/  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawText</span><span class="params">(String text, <span class="keyword">float</span> x, <span class="keyword">float</span> y, Paint paint)</span></span></div></pre></td></tr></table></figure>
+<p>上面这个构造函数是最常用的drawText方法，传进去一个String对象就能画出对应的文字。<br>但这里有两个参数需要非常注意，表示原点坐标的x和y.很多同学可能会认为，这里传进去的原点参数(x,y)是所在绘制文字所在矩形的左上角的点。但实际上并不是！比如，我们上面如果要画<strong>“matt’s blog”</strong>这几个字，这个原点坐标应当是下图中绿色小点的位置</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/drawtext_baseline_point.png" alt=""></p>
+<h5 id="（2）实例"><a href="#（2）实例" class="headerlink" title="（2）实例"></a><font color="#388E3C">（2）实例<font></font></font></h5><p> 下面我们就举个例子来看一下drawText中，原点坐标(x,y)的位置。</p>
+<ul>
+<li>新建一个工程，创建一个MainActivity,然后创建一个CustomTextView继承View<br>重写onDraw函数<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//重写onDraw函数，自定义一个基线，然后利用drawText画出来</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line">    <span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setColor(Color.RED);  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    canvas.drawText(<span class="string">"matt's blog"</span>, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这里，先定义drawText原点的位置：（0，200）<br>首先，我们把(0,200)所在的这条横线画出来，所以我先画了一条线从点坐标为(0,200)到点坐标为(2500,200)的一条直线<br>然后利用canvas.drawText以（0，200）为原点画出文字</p>
+<ul>
+<li>在main.xml添加自定义view的引用</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;android.support.constraint.ConstraintLayout</div><div class="line">    xmlns:android="http://schemas.android.com/apk/res/android"</div><div class="line">    xmlns:tools="http://schemas.android.com/tools"</div><div class="line">    xmlns:app="http://schemas.android.com/apk/res-auto"</div><div class="line">    android:layout_width="match_parent"</div><div class="line">    android:layout_height="match_parent"</div><div class="line">    app:layout_behavior="@string/appbar_scrolling_view_behavior"</div><div class="line">    tools:showIn="@layout/app_bar_main"</div><div class="line">    tools:context="cn.addapp.customviews.MainActivity"&gt;</div><div class="line"></div><div class="line">    &lt;cn.addapp.customviews.views.CustomTextView</div><div class="line">            android:layout_width="match_parent"</div><div class="line">            android:layout_height="match_parent"/&gt;</div><div class="line"></div><div class="line">&lt;/android.support.constraint.ConstraintLayout&gt;</div></pre></td></tr></table></figure>
+<p>效果图如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-07-17-10-02.png" alt="效果图"></p>
+<h5 id="结论："><a href="#结论：" class="headerlink" title="结论："></a><font color="#388E3C">结论：<font></font></font></h5><p> &emsp;&emsp;<font color="#388E3C">1. drawText是中的参数y是基线的位置。<font><br></font></font></p>
+<p> &emsp;&emsp;<font color="#388E3C">2. 一定要清楚的是，只要x坐标、基线位置、文字大小确定以后，文字的位置就是确定的了。<font></font></font></p>
+<h4 id="3-paint-setTextAlign-Paint-Align-XXX"><a href="#3-paint-setTextAlign-Paint-Align-XXX" class="headerlink" title="3. paint.setTextAlign(Paint.Align.XXX)"></a><font color="#01579B">3. paint.setTextAlign(Paint.Align.XXX)<font></font></font></h4><p>在上面我们讲了，drawText()函数中的Y坐标表示所要绘制文字的基线所在位置。从上面的例子，我们可以看到，我们绘图结果是在X坐标的右边开始绘制的，但这并不是必然的结果。<br>我们来看一张图：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/drawtext_baseline_point_mark.png" alt="mark"></p>
+<p>我们知道，我们在drawText(text, x, y, paint)中传进去的源点坐标(x,y);其中，y表示的基线的位置。那x代表什么呢？从上面的例子运行结果来看，应当是文字开始绘制的地方。<br><br>并不是所要绘制文字所在矩形的相对位置。相对位置就是指定点（x,y）在在所要绘制矩形的位置。我们知道所绘制矩形的纵坐标是由Y值来确定的，而相对x坐标的位置，只有左、中、右三个位置了。也就是所绘制矩形可能是在x坐标的左侧绘制，也有可能在x坐标的中间，也有可能在x坐标的右侧。而定义在x坐标在所绘制矩形相对位置的函数是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 其中Align的取值为：Panit.Align.LEFT,Paint.Align.CENTER,Paint.Align.RIGHT</div><div class="line">*/  </div><div class="line"></div><div class="line">paint.setTextAlign(Align align);</div></pre></td></tr></table></figure></p>
+<p>我们再来重新看一下上面的例子，当我们设置为不同的值时，绘制结果是怎样的。<br>同样的代码，我们加上paint.setTextAlign()来设置相对位置来看看结果。</p>
+<h5 id="（1）setTextAlign-Paint-Align-LEFT"><a href="#（1）setTextAlign-Paint-Align-LEFT" class="headerlink" title="（1）setTextAlign(Paint.Align.LEFT)"></a><font color="#388E3C">（1）setTextAlign(Paint.Align.LEFT)<font></font></font></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    <span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setColor(Color.RED);  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.LEFT);  </div><div class="line">    canvas.drawText(<span class="string">"matt's blog"</span>, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-07-17-10-02.png" alt="效果图"></p>
+<p> <font color="RED">可见，原点(x,y)在矩形的左侧，即矩形从(x,y)的点开始绘制<font></font></font></p>
+<h5 id="（2）setTextAlign-Paint-Align-CENTER"><a href="#（2）setTextAlign-Paint-Align-CENTER" class="headerlink" title="（2）setTextAlign(Paint.Align.CENTER)"></a><font color="#388E3C">（2）setTextAlign(Paint.Align.CENTER)<font></font></font></h5><p>同样的代码，把相对位置设置为：setTextAlign(Paint.Align.CENTER)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    <span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setColor(Color.RED);  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.CENTER);  </div><div class="line">    canvas.drawText(<span class="string">"matt's blog"</span>, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-08-11-29-39.png" alt="效果图"></p>
+<p>所以原点（x,y）就在所要绘制文字所在矩形区域的正中间，换句话说，系统会根据(x,y)的位置和文字所在矩形大小，会计算出当前开始绘制的点。以使原点(x,y)正好在所要绘制的矩形的正中间。</p>
+<h5 id="（3）setTextAlign-Paint-Align-RIGHT"><a href="#（3）setTextAlign-Paint-Align-RIGHT" class="headerlink" title="（3）setTextAlign(Paint.Align.RIGHT)"></a><font color="#388E3C">（3）setTextAlign(Paint.Align.RIGHT)<font></font></font></h5><p>同样的代码，把相对位置设置为：setTextAlign(Paint.Align.RIGHT)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    <span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setColor(Color.RED);  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.RIGHT);  </div><div class="line">    canvas.drawText(<span class="string">"matt's blog"</span>, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-08-11-30-29.png" alt="效果图"></p>
+<p>所以原点（x,y）应当在所要绘制矩形的右侧，在上面的代码中，也就是说整个矩形都在（0,200）的左侧，所以我们看到的是什么都没有。</p>
+<h5 id="（4）注意"><a href="#（4）注意" class="headerlink" title="（4）注意"></a><font color="#388E3C">（4）注意<font></font></font></h5><p>下面，我们再看一个例子：<br>我们只写一个大写字母 M，然后将其相对位置设置为paint.setTextAlign(Paint.Align.CENTER)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    <span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setColor(Color.RED);  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.CENTER);  </div><div class="line">    canvas.drawText(<span class="string">"M"</span>, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-08-11-42-14.png" alt="效果图"></p>
+<p>我们可以看到字母M在原点(0，200)的正中间。<br>这也就是我们要强调的：相对位置是根据所要绘制文字所在矩形来计算的。</p>
+<h2 id="二、drawText的四线格与FontMetrics"><a href="#二、drawText的四线格与FontMetrics" class="headerlink" title="二、drawText的四线格与FontMetrics"></a><font color="#00ACC1">二、drawText的四线格与FontMetrics<font></font></font></h2><h5 id="1、Text的绘图四线格"><a href="#1、Text的绘图四线格" class="headerlink" title="1、Text的绘图四线格"></a><font color="#388E3C">1、Text的绘图四线格<font></font></font></h5><p>前面我们讲了基线，其实除了基线，系统在绘制Text时，还是有其它线的，我们来看个图：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170309_202149.png" alt="效果图"></p>
+<p>除了基线以外，如上图所示，另外还有四条线，分别是ascent,descent,top,bottom，他们的意义分别是：</p>
+<ul>
+<li>ascent: 系统建议的，绘制单个字符时，字符应当的最高高度所在线</li>
+<li>descent:系统建议的，绘制单个字符时，字符应当的最低高度所在线</li>
+<li>top: 可绘制的最高高度所在线</li>
+<li>bottom: 可绘制的最低高度所在线</li>
+</ul>
+<p>单从这几个定义，大家可能还是搞不清这几值到底是什么意义。我们来看一下电视的显示。用过视频处理工具的同学（比如premiere,AE,绘声绘影等）,应该都会知道，在制作视频时，视频显示位置都会有一个安全区域框，如下图所示：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170309_203930.png" alt="效果图"></p>
+<p>如上图所示，黑色部分表示电视屏幕，红色框就表示安全区域框。<br>这个安全框是用来干嘛的？这个安全框就是系统推荐给我们的显示区域，虽然说我们可以讲电视屏幕是每个区域都是可以显示图像的，但由于制式的不同，每个国家的屏幕大小并不一定我们这里的屏幕大小一致，当遇到不一致时，就会裁剪。但系统给我们推荐的显示区域是无论哪种制式都是可以完整显示出来的，所以我们在制作视频时，尽量要把要显示的图像放在所推荐的显示区域内。<br>同样，在这里，我们在绘制文字时，ascent是推荐的绘制文字的最高高度，就表示在绘制文字时，尽力要在这个最高高度以下绘制文字。descent是推荐的绘制文字的最底高度线，同样表示是在绘制文字时尽量在这个descent线以上来绘制文字。而top线则指该文字可以绘制的最高高度线，bottom则是表示该文字可以绘制的最低高度线。ascent,descent是系统建议上的绘制高度，而top,bottom则是物理上屏幕最高，最低可以画的高度值。他们的差别与我们上面说的视频处理的安全框和屏幕的道理是一样的。</p>
+<h5 id="2、FontMetrics"><a href="#2、FontMetrics" class="headerlink" title="2、FontMetrics"></a><font color="#388E3C">2、FontMetrics<font></font></font></h5><h6 id="（1）、fontMetrics概述"><a href="#（1）、fontMetrics概述" class="headerlink" title="（1）、fontMetrics概述"></a><font color="#388E3C">（1）、fontMetrics概述<font></font></font></h6><p>上面我们讲了，系统在画文字时的五条线，baseline、ascent、descent、top、bottom我们知道baseline的位置是我们在构造drawText()时的参数y来决定的，那ascent,descent,top,bottom这些线的位置要怎么计算出来呢？<br>Android给我们提供了一个类：FontMetrics，它里面有四个成员变量：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FontMetrics::ascent;  </div><div class="line">FontMetrics::descent;  </div><div class="line">FontMetrics::top;  </div><div class="line">FontMetrics::bottom;</div></pre></td></tr></table></figure></p>
+<p>他们的意义与值的计算方法分别如下：</p>
+<ul>
+<li><font color="#388E3C">ascent = ascent线的y坐标 - baseline线的y坐标；<font></font></font></li>
+<li><font color="#388E3C">descent = descent线的y坐标 - baseline线的y坐标；<font></font></font></li>
+<li><font color="#388E3C">top = top线的y坐标 - baseline线的y坐标；<font></font></font></li>
+<li><font color="#388E3C">bottom = bottom线的y坐标 - baseline线的y坐标；<font></font></font></li>
+</ul>
+<p>我们再来看这个图：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170309_202149.png" alt="效果图"></p>
+<p>从这个图中，我们先说明两点，然后再回过头来看上面的公式：<br><br>1、X轴，Y轴的正方向走向是X轴向右是正方向，Y轴向下是正方向，所以越往右X坐标越大，越往下Y坐标越大！<br><br>2、大家千万不要将FontMetrics中的ascent,descent,top,bottom与现实中的ascent,descent,top,bottom所在线混淆！<br><br>这几条线是真实存在的，而FontMetrics中的ascent,descent,top,bottom这个变量的值就是用来计算这几条线的位置的。下面我们将看到如何利用这几个变量来计算这几条线的位置。<br>看完这个图，我们再重新说说这几个公式，我们拿一个来说吧，其它都是相同的道理。</p>
+<blockquote>
+<p>ascent = ascent线的y坐标 - baseline线的y坐标；</p>
+</blockquote>
+<p>FontMetrics的这几个变量的值都是以baseline为基准的，对于ascent来说，baseline线在ascent线之下，所以必然baseline的y值要大于ascent线的y值，所以ascent变量的值是负的。<br>同理，对于descent而言：</p>
+<blockquote>
+<p>descent = descent线的y坐标 - baseline线的y坐标；</p>
+</blockquote>
+<p>descent线在baseline线之下，所以必然descent线的y坐标要大于baseline线的y坐标，所以descent变量的值必然是正数。</p>
+<h6 id="（2）、得到Text四线格的各线位置"><a href="#（2）、得到Text四线格的各线位置" class="headerlink" title="（2）、得到Text四线格的各线位置"></a><font color="#388E3C">（2）、得到Text四线格的各线位置<font></font></font></h6><p>下面，我们就来看看如何通过这些变量来得到对应线所在位置吧。<br>我们先列出来一个公式：</p>
+<blockquote>
+<p>ascent线Y坐标 = baseline线Y坐标 + fontMetric.ascent;  </p>
+</blockquote>
+<p>推算过程如下：<br><br>因为ascent线的Y坐标等于baseline线的Y坐标减去从baseline线到ascent线的这段距离。<br><br>也就是：(|fontMetric.ascent|表示取绝对值)<br><br>ascent线Y坐标 = baseline线Y坐标 - |fontMetric.ascent|;<br><br>又因为fontMetric.ascent是负值，所以：<br><br>ascent线Y坐标 = baseline线Y坐标 - |fontMetric.ascent|;<br><br>ascent线Y坐标 = baseline线Y坐标 - （ -fontMetric.ascent）;<br><br>ascent线Y坐标 = baseline线Y坐标 + fontMetric.ascent;<br><br>这就是整个推算过程，没什么难度，同理可以得到：</p>
+<ul>
+<li><font color="#388E3C">ascent线Y坐标 = baseline线的y坐标 + fontMetric.ascent；<font></font></font></li>
+<li><font color="#388E3C">descent线Y坐标 = baseline线的y坐标 + fontMetric.descent；<font></font></font></li>
+<li><font color="#388E3C">top线Y坐标 = baseline线的y坐标 + fontMetric.top；<font></font></font></li>
+<li><font color="#388E3C">bottom线Y坐标 = baseline线的y坐标 + fontMetric.bottom；<font></font></font></li>
+</ul>
+<h6 id="（3）、获取FontMetrics对象"><a href="#（3）、获取FontMetrics对象" class="headerlink" title="（3）、获取FontMetrics对象"></a><font color="#388E3C">（3）、获取FontMetrics对象<font></font></font></h6><p>获取FontMetrics对象是根据paint对象来获取的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">Paint.FontMetrics fm = paint.getFontMetrics();  </div><div class="line">Paint.FontMetricsInt fmInt = paint.getFontMetricsInt();</div><div class="line">`</div></pre></td></tr></table></figure>
+<p>从这里可以看到，通过paint.getFontMetrics()得到对应的FontMetrics对象。这里还有另外一个FontMetrics同样的类叫做FontMetricsInt，它的意义与FontMetrics完全相同，只是得到的值的类型不一样而已，FontMetricsInt中的四个成员变量的值都是Int类型，而FontMetrics得到的四个成员变量的值则都是float类型的。</p>
+<h6 id="（4）、实例：计算Text四线格位置"><a href="#（4）、实例：计算Text四线格位置" class="headerlink" title="（4）、实例：计算Text四线格位置"></a><font color="#388E3C">（4）、实例：计算Text四线格位置<font></font></font></h6><p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/Screenshot_2017-03-09-19-55-43.png" alt="效果图"></p>
+<p>在这个例子中，我们先写一行字，然后画出这行字中的top线，ascent线，baseline线，descent线和bottom线。<br>我们直接上完整代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">     <span class="keyword">super</span>.onDraw(canvas);</div><div class="line">     <span class="keyword">int</span> baseLineY = <span class="number">200</span>;</div><div class="line">     <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;</div><div class="line">     Paint paint = <span class="keyword">new</span> Paint();</div><div class="line">     <span class="comment">//写文字</span></div><div class="line">     paint.setColor(Color.BLUE);</div><div class="line">     paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位</span></div><div class="line">     paint.setTextAlign(Paint.Align.LEFT);</div><div class="line">     canvas.drawText(<span class="string">"matt's blog"</span>, baseLineX, baseLineY, paint);</div><div class="line"></div><div class="line">     <span class="comment">//计算各线在位置</span></div><div class="line">     Paint.FontMetrics fm = paint.getFontMetrics();</div><div class="line">     <span class="keyword">float</span> ascent = baseLineY + fm.ascent;</div><div class="line">     <span class="keyword">float</span> descent = baseLineY + fm.descent;</div><div class="line">     <span class="keyword">float</span> top = baseLineY + fm.top;</div><div class="line">     <span class="keyword">float</span> bottom = baseLineY + fm.bottom;</div><div class="line">     <span class="comment">//画基线</span></div><div class="line">     paint.setColor(Color.parseColor(<span class="string">"#FF0000"</span>));</div><div class="line">     paint.setFakeBoldText(<span class="keyword">true</span>);</div><div class="line">     paint.setStrokeWidth(<span class="number">3</span>);</div><div class="line">     canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);</div><div class="line">     <span class="comment">//画top</span></div><div class="line">     paint.setColor(Color.parseColor(<span class="string">"#196F3D"</span>));</div><div class="line">     canvas.drawLine(baseLineX, top, <span class="number">2500</span>, top, paint);</div><div class="line"></div><div class="line">     <span class="comment">//画ascent</span></div><div class="line">     paint.setColor(Color.parseColor(<span class="string">"#1A5276"</span>));</div><div class="line">     canvas.drawLine(baseLineX, ascent, <span class="number">2500</span>, ascent, paint);</div><div class="line"></div><div class="line">     <span class="comment">//画descent</span></div><div class="line">     paint.setColor(Color.parseColor(<span class="string">"#F1C40F"</span>));</div><div class="line">     canvas.drawLine(baseLineX, descent, <span class="number">2500</span>, descent, paint);</div><div class="line"></div><div class="line">     <span class="comment">//画bottom</span></div><div class="line">     paint.setColor(Color.parseColor(<span class="string">"#33FF00"</span>));</div><div class="line">     canvas.drawLine(baseLineX, bottom, <span class="number">2500</span>, bottom, paint);</div><div class="line"></div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>这段代码中，总共分为三部分，写文字、计算各线所在位置、画出各条线；我们逐段来讲<br>先看写文字：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> baseLineY = <span class="number">200</span>;</div><div class="line"><span class="keyword">int</span> baseLineX = <span class="number">0</span> ;</div><div class="line">Paint paint = <span class="keyword">new</span> Paint();</div><div class="line"><span class="comment">//写文字</span></div><div class="line">paint.setColor(Color.BLUE);</div><div class="line">paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位</span></div><div class="line">paint.setTextAlign(Paint.Align.LEFT);</div><div class="line">canvas.drawText(<span class="string">"matt's blog"</span>, baseLineX, baseLineY, paint);</div></pre></td></tr></table></figure></p>
+<p>有关drawText的问题我们已经讲过，在这段代码中，我们需要注意的是两点：<br>1、drawText中的参数y是基线的位置<br><br>2、paint.setTextAlign(Paint.Align.LEFT);设置的相对位置为，指定的原点(0,200)在绘制矩形的左侧。换句话说，所绘制的文字所在矩形在(0,200)点的右侧<br>然后是计算各各线的y坐标位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计算各线在位置  </span></div><div class="line">Paint.FontMetrics fm = paint.getFontMetrics();  </div><div class="line"><span class="keyword">float</span> ascent = baseLineY + fm.ascent;  </div><div class="line"><span class="keyword">float</span> descent = baseLineY + fm.descent;  </div><div class="line"><span class="keyword">float</span> top = baseLineY + fm.top;  </div><div class="line"><span class="keyword">float</span> bottom = baseLineY + fm.bottom;</div></pre></td></tr></table></figure>
+<p>首先，利用 paint.getFontMetrics()得到FontMetrics的实例，然后利用我们上面的公式即可得到各条线的y坐标。<br>最后就是利用这些y坐标画出这些线了，很简单，就是drawLine的使用，难度不大，就不再细讲。</p>
+<h2 id="三、所绘文字宽度、高度和最小矩形获取"><a href="#三、所绘文字宽度、高度和最小矩形获取" class="headerlink" title="三、所绘文字宽度、高度和最小矩形获取"></a><font color="#00ACC1">三、所绘文字宽度、高度和最小矩形获取<font></font></font></h2><p>这部分，我们将讲解如何获取所绘制字符串所占区域的高度、宽度和仅包裹字符串的最小矩形。我们来看张图来讲述下他们的意义：<br><img src="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-15-18-17.png" alt="效果图"></p>
+<p>在这张图中，文字底部的绿色框就是所绘制字符串所占据的大小。我们要求的宽度和高度也就是这个绿色框的宽度和高度。<br><br>从图中也可以看到，红色框部分，它的宽和高紧紧包围着字符串，所以红色框就是我们要求的最小矩形。即能包裹字符串的最小矩形。</p>
+<h4 id="1、字符串所占高度和宽度"><a href="#1、字符串所占高度和宽度" class="headerlink" title="1、字符串所占高度和宽度"></a><font color="#01579B">1、字符串所占高度和宽度<font></font></font></h4><h6 id="（1）、高度"><a href="#（1）、高度" class="headerlink" title="（1）、高度"></a><font color="#388E3C">（1）、高度<font></font></font></h6><p>字符串所占高度很容易得到，直接用bottom线所在位置的Y坐标减去top线所在位置的Y坐标就是字符串所占的高度：<br><br>代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Paint.FontMetricsInt fm = paint.getFontMetricsInt();  </div><div class="line"><span class="keyword">int</span> top = baseLineY + fm.top;  </div><div class="line"><span class="keyword">int</span> bottom = baseLineY + fm.bottom;  </div><div class="line"><span class="comment">//所占高度  </span></div><div class="line"><span class="keyword">int</span> height = bottom - top;</div></pre></td></tr></table></figure></p>
+<h6 id="（2）、宽度"><a href="#（2）、宽度" class="headerlink" title="（2）、宽度"></a><font color="#388E3C">（2）、宽度<font></font></font></h6><p>宽度是非常容易得到的，直接利用下面的函数就可以得到<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> width = paint.measureText(String text);</div></pre></td></tr></table></figure></p>
+<p>使用示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">String text = <span class="string">"matt's blog"</span>;</div><div class="line">Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line"></div><div class="line"><span class="comment">//设置paint  </span></div><div class="line">paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line"><span class="comment">//获取宽度  </span></div><div class="line"><span class="keyword">int</span> width = (<span class="keyword">int</span>)paint.measureText(text);</div></pre></td></tr></table></figure>
+<h6 id="（3）、最小矩形"><a href="#（3）、最小矩形" class="headerlink" title="（3）、最小矩形"></a><font color="#388E3C">（3）、最小矩形<font></font></font></h6><h6 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a><font color="#00ACC1">1、概述<font></font></font></h6><p>要获取最小矩形，也是通过系统函数来获取的，函数及意义如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取指定字符串所对应的最小矩形，以（0，0）点所在位置为基线</div><div class="line"> * <span class="doctag">@param</span> text  要测量最小矩形的字符串</div><div class="line"> * <span class="doctag">@param</span> start 要测量起始字符在字符串中的索引</div><div class="line"> * <span class="doctag">@param</span> end   所要测量的字符的长度</div><div class="line"> * <span class="doctag">@param</span> bounds 接收测量结果</div><div class="line"> */  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getTextBounds</span><span class="params">(String text, <span class="keyword">int</span> start, <span class="keyword">int</span> end, Rect bounds)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>我们简单展示下使用代码及结果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">String text = <span class="string">"matt's blog"</span>;  </div><div class="line">Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line"><span class="comment">//设置paint  </span></div><div class="line">paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line"></div><div class="line">Rect rect = <span class="keyword">new</span> Rect();  </div><div class="line">paint.getTextBounds(text,<span class="number">0</span>,text.length(),rect);  </div><div class="line">Log.e(<span class="string">"matt"</span>,rect.toShortString());</div></pre></td></tr></table></figure></p>
+<p>在这段代码中，首先设置字体大小，然后利用paint.getTextBounds（）得到最小矩形，最后，我将其打印出来<br>结果如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170310_112242.png" alt=""></p>
+<p>可以看到这个矩形的左上角位置为（8，-90），右下角的位置为（580，25）；<br>大家可能会有疑问，为什么左上角的Y坐标是个负数？从代码中，我们也可以看到，我们并没有给getTextBounds（）传递基线位置。那它就是以（0，0）为基线来得到这个最小矩形的！所以这个最小矩形的位置就是以（0，0）为基线的结果！</p>
+<h6 id="2、得到最小矩形的实际位置"><a href="#2、得到最小矩形的实际位置" class="headerlink" title="2、得到最小矩形的实际位置"></a><font color="#00ACC1">2、得到最小矩形的实际位置<font></font></font></h6><p>我们先来看一个原理：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/blog/imgs/snipaste_20170310_145530.png" alt=""></p>
+<p>在上面这个图中，我们将黑色矩形平行下移距离Y（黄色线依照的是基线的位置），那么平移后的左上角点的y坐标就是 y2 = y1 + Y;<br>同样的道理，由于paint.getTextBounds（）得到最小矩形的基线是y = 0;那我们直接将这个矩形移动baseline的距离就可以得到这个矩形实际应当在的位置了。<br>所以矩形应当所在实际位置的坐标是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Rect minRect = <span class="keyword">new</span> Rect();  </div><div class="line">paint.getTextBounds(text,<span class="number">0</span>,text.length(),minRect);  </div><div class="line"><span class="comment">//最小矩形，实际top位置  </span></div><div class="line"><span class="keyword">int</span> minTop = minRect.top + baselineY;  </div><div class="line"><span class="comment">//最小矩形，实际bottom位置  </span></div><div class="line"><span class="keyword">int</span> minBottom = minRect.bottom + baselineY;</div></pre></td></tr></table></figure></p>
+<h6 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a><font color="#00ACC1">3、实例<font></font></font></h6><p>下面我们就举个例子来看一下我们列举的这几个函数的使用方法<br>效果图与这一节开篇时的效果图是一样的，如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-15-18-17.png" alt="效果图"></p>
+<p>我们先看一下完整的代码，然后再细讲<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    String text = <span class="string">"matt's blog"</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//设置paint  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.LEFT);  </div><div class="line"></div><div class="line">    <span class="comment">//画text所占的区域  </span></div><div class="line">    Paint.FontMetricsInt fm = paint.getFontMetricsInt();  </div><div class="line">    <span class="keyword">int</span> top = baseLineY + fm.top;  </div><div class="line">    <span class="keyword">int</span> bottom = baseLineY + fm.bottom;  </div><div class="line">    <span class="keyword">int</span> width = (<span class="keyword">int</span>)paint.measureText(text);  </div><div class="line">    Rect rect = <span class="keyword">new</span> Rect(baseLineX,top,baseLineX+width,bottom);  </div><div class="line"></div><div class="line">    paint.setColor(Color.GREEN);  </div><div class="line">    canvas.drawRect(rect,paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画最小矩形  </span></div><div class="line">    Rect minRect = <span class="keyword">new</span> Rect();  </div><div class="line">    paint.getTextBounds(text,<span class="number">0</span>,text.length(),minRect);  </div><div class="line">    minRect.top = baseLineY + minRect.top;  </div><div class="line">    minRect.bottom = baseLineY + minRect.bottom;  </div><div class="line">    paint.setColor(Color.RED);  </div><div class="line">    canvas.drawRect(minRect,paint);  </div><div class="line"></div><div class="line">    <span class="comment">//写文字  </span></div><div class="line">    paint.setColor(Color.WHITE);  </div><div class="line">    canvas.drawText(text, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这段代码总共分为四部分：设置paint,画字符串所占据矩形，画最小矩形，画文字</p>
+<h6 id="第一部分：设置paint"><a href="#第一部分：设置paint" class="headerlink" title="第一部分：设置paint"></a><font color="#00ACC1">第一部分：设置paint<font></font></font></h6><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">String text = <span class="string">"matt's blog"</span>;  </div><div class="line"><span class="keyword">int</span> baseLineY = <span class="number">200</span>;  </div><div class="line"><span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line"><span class="comment">//设置paint  </span></div><div class="line">Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">paint.setTextAlign(Paint.Align.LEFT);</div></pre></td></tr></table></figure>
+<p>设置paint这部分，主要是设置字体的大小，因为我们在字体所占的区域大小跟字体的大小是有直接关系的，如果不设置，那么在获取所占区域大小时，将利用系统默认的大小来测量了，当然是不行的。</p>
+<h6 id="第二部分：画text所占的区域"><a href="#第二部分：画text所占的区域" class="headerlink" title="第二部分：画text所占的区域"></a><font color="#00ACC1">第二部分：画text所占的区域<font></font></font></h6><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//画text所占的区域  </span></div><div class="line">Paint.FontMetricsInt fm = paint.getFontMetricsInt();  </div><div class="line"><span class="keyword">int</span> top = baseLineY + fm.top;  </div><div class="line"><span class="keyword">int</span> bottom = baseLineY + fm.bottom;  </div><div class="line"><span class="keyword">int</span> width = (<span class="keyword">int</span>)paint.measureText(text);  </div><div class="line">Rect rect = <span class="keyword">new</span> Rect(baseLineX,top,baseLineX+width,bottom);  </div><div class="line"></div><div class="line">paint.setColor(Color.GREEN);  </div><div class="line">canvas.drawRect(rect,paint);</div></pre></td></tr></table></figure>
+<p> <font color="#196F3D"><br>这里就是利用我们前面我们讲过的获取top线和bottom线的方法，获取宽度时就是利用paint.measureText(text)；<br>然后利用求得到top,bottom,width来得到对应的矩形：Rect(baseLineX,top,baseLineX+width,bottom)，这里要注意的是我们利用paint.measureText(text)得到的只是宽度，矩形右下角的x坐标值为baselinex+width;<br>但需要注意的是：矩形右下角的值并不一定是baselinex+width！它的具体取值是跟paint.setTextAlign(Paint.Align.LEFT)有关的，因为我们这里设置为Paint.Align.LEFT，所以是baselinex+width。如果设置为Paint.Align.CENTER,那么右下角的X坐标值为baselinex+width/2；再者如果设置为Paint.Align.RIGHT,那么右下角的X坐标就是baselineX;所占矩形的四个角的所有位置是与paint.setTextAlign()的设置紧密相关的，至于各个点的计算方法就不再细讲了，根据我们前面讲的paint.setTextAlign()的显示效果是非常容易想到的。</font></p>
+<font>
+
+<h6 id="第三部分：画最小区域矩形"><a href="#第三部分：画最小区域矩形" class="headerlink" title="第三部分：画最小区域矩形"></a><font color="#00ACC1">第三部分：画最小区域矩形<font></font></font></h6><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//画最小矩形  </span></div><div class="line">Rect minRect = <span class="keyword">new</span> Rect();  </div><div class="line">paint.getTextBounds(text,<span class="number">0</span>,text.length(),minRect);  </div><div class="line">minRect.top = baseLineY + minRect.top;  </div><div class="line">minRect.bottom = baseLineY + minRect.bottom;  </div><div class="line">paint.setColor(Color.RED);  </div><div class="line">canvas.drawRect(minRect,paint);</div></pre></td></tr></table></figure>
+<p>这部分也就没什么难度了，首先根据paint.getTextBounds（）得到基线为y=0的最小矩形的各点坐标，然后根据基线得到其实际的top和bottom坐标；然后将其画出来即可</p>
+<h6 id="第四部分：画文字"><a href="#第四部分：画文字" class="headerlink" title="第四部分：画文字"></a><font color="#00ACC1">第四部分：画文字<font></font></font></h6><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//画文字  </span></div><div class="line">paint.setColor(Color.WHITE);  </div><div class="line">canvas.drawText(text, baseLineX, baseLineY, paint);</div></pre></td></tr></table></figure>
+<h2 id="四、定点写字"><a href="#四、定点写字" class="headerlink" title="四、定点写字"></a><font color="#01579B">四、定点写字<font></font></font></h2><p>讲完上面的三部分，这篇文章所要讲的知识点基本就结束了，下面就是应用的部分了，在这部分中，我们将讲述，当我们设定一个点，如何到得基线位置，进而画出字符串。</p>
+<h6 id="1、给定左上顶点绘图"><a href="#1、给定左上顶点绘图" class="headerlink" title="1、给定左上顶点绘图"></a><font color="#00ACC1">1、给定左上顶点绘图<font></font></font></h6><p>这部分，我们假定给出所要绘制矩形的左上角顶点坐标，然后画出这个文字。<br>先来看效果图：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/snipaste_20170310_155716.png" alt=""></p>
+<p>在这个图中，我们给定左上角的位置，即(left,top)；我们知道要画文字，drawText()中传进去的Y坐标是基线的位置，所以我们就必须根据top的位置计算出baseline的位置。<br>我们来看一个公式：<br><br>FontMetrics.top = top - baseline;<br><br>所以baseline = top - FontMetrics.top;<br><br>因为FontMetrics.top是可以得到的，又因为我们的top坐标是给定的，所以通过这个公式就能得到baseline的位置了。<br><br>下面举个例子来说明一下根据矩形左上项点绘制文字的过程：<br>先看下效果图：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-15-52-50.png" alt=""></p>
+<p>在这个效果图中，因为我们会给定矩形左上角顶点(left,top)，所以们先画出top线的位置，然后计算出baseline的位置，并画出来。最后根据baseline把文字写出来。<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    String text = <span class="string">"matt's blog"</span>;  </div><div class="line">    <span class="keyword">int</span> top = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//设置paint  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.LEFT);  </div><div class="line"></div><div class="line">    <span class="comment">//画top线  </span></div><div class="line">    paint.setColor(Color.parseColor(<span class="string">"#196F3D"</span>));  </div><div class="line">    canvas.drawLine(baseLineX, top, <span class="number">2500</span>, top, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//计算出baseLine位置  </span></div><div class="line">    Paint.FontMetricsInt fm = paint.getFontMetricsInt();  </div><div class="line">    <span class="keyword">int</span> baseLineY = top - fm.top;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    paint.setColor(Color.parseColor(<span class="string">"#FF0000"</span>));  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">2500</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    canvas.drawText(text, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码，比较简单，首先是我们给定top给的位置int top = 200;然后根据top线位置计算出baseline所在位置,并画出来.</p>
+<h6 id="2、给定中间线位置绘图"><a href="#2、给定中间线位置绘图" class="headerlink" title="2、给定中间线位置绘图"></a><font color="#00ACC1">2、给定中间线位置绘图<font></font></font></h6><p>先看效果图：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/snipaste_20170310_163121.png" alt=""></p>
+<p>在这个图中，总共有四条线：top线，bottom线，baseline和center线；<br><br>图中center线正是在top线和bottom线的正中间。<br><br>为了方便推导公式，我另外标了三个距离A,B,C;<br><br>很显然，距离A和距离C是相等的，都等于文字所在矩形高度以的一半，即：<br><br>A = C = (bottom - top)/2;<br><br>又因为bottom = baseline + FontMetrics.bottom;<br><br>top = baseline+FontMetrics.top;<br><br>所以，将它们两个代入上面的公式，就可得到：<br><br>A = C = (FontMetrics.bottom - FontMetrics.top)/2;<br><br>而距离B,则表示Center线到baseline的距离。<br><br>很显然距离B = C - (bottom - baseline);<br><br>又因为<br><br>FontMetrics.bottom = bottom-baseline;<br><br>C = A;<br><br>所以，B = A - FontMetrics.bottom;<br><br>所以baseline = center + B = center + A - FontMetrics.bottom = center +<br> (FontMetrics.bottom - FontMetrics.top)/2 - FontMetrics.bottom;<br></p>
+<p>根据上面的推导过程，我们最终可知，当给定中间线center位置以后，baseline的位置为：<br></p>
+<p>baseline = center + (FontMetrics.bottom - FontMetrics.top)/2 - FontMetrics.bottom;<br>下面我们举个例子来说明下这个公式的用法。<br><br>效果图如下：</p>
+<p><img src="http://oj6uq9cjj.bkt.clouddn.com/Screenshot_2017-03-10-16-38-27.png" alt=""></p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;  </div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);  </div><div class="line"></div><div class="line">    String text = <span class="string">"matt's blog"</span>;  </div><div class="line">    <span class="keyword">int</span> center = <span class="number">200</span>;  </div><div class="line">    <span class="keyword">int</span> baseLineX = <span class="number">0</span> ;  </div><div class="line"></div><div class="line">    <span class="comment">//设置paint  </span></div><div class="line">    Paint paint = <span class="keyword">new</span> Paint();  </div><div class="line">    paint.setTextSize(<span class="number">120</span>); <span class="comment">//以px为单位  </span></div><div class="line">    paint.setTextAlign(Paint.Align.LEFT);  </div><div class="line"></div><div class="line">    <span class="comment">//画center线  </span></div><div class="line">    paint.setColor(Color.parseColor(<span class="string">"#1A5276"</span>));  </div><div class="line">    paint.setFakeBoldText(<span class="keyword">true</span>);</div><div class="line">    paint.setStrokeWidth(<span class="number">3</span>);</div><div class="line">    canvas.drawLine(baseLineX, center, <span class="number">3000</span>, center, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//计算出baseLine位置  </span></div><div class="line">    Paint.FontMetricsInt fm = paint.getFontMetricsInt();  </div><div class="line">    <span class="keyword">int</span> baseLineY = center + (fm.bottom - fm.top)/<span class="number">2</span> - fm.bottom;  </div><div class="line"></div><div class="line">    <span class="comment">//画基线  </span></div><div class="line">    paint.setColor(Color.parseColor(<span class="string">"#FF0000"</span>));</div><div class="line">    paint.setFakeBoldText(<span class="keyword">true</span>);</div><div class="line">    paint.setStrokeWidth(<span class="number">3</span>);  </div><div class="line">    canvas.drawLine(baseLineX, baseLineY, <span class="number">3000</span>, baseLineY, paint);  </div><div class="line"></div><div class="line">    <span class="comment">//画文字  </span></div><div class="line">    paint.setColor(Color.BLUE);  </div><div class="line">    canvas.drawText(text, baseLineX, baseLineY, paint);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码根据给定中间线的位置为200,然后计算出baseline的位置，然后把文字在baseline的基础上画出来。</p>
+</font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果感觉文章对您有用，请随意打赏，谢谢。</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.png" alt="matt WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="matt Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/26/多种模式的android选择器类库/" rel="next" title="多种模式的android选择器类库">
+                <i class="fa fa-chevron-left"></i> 多种模式的android选择器类库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/18/全球公认最健康的作息时间表/" rel="prev" title="全球公认最健康的作息时间表">
+                全球公认最健康的作息时间表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/07/Android自定义控件之drawText详解/"
+           data-title="自定义控件之绘图篇：drawText详解" data-url="http://addapp.cn/2017/03/07/Android自定义控件之drawText详解/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="matt" />
+          <p class="site-author-name" itemprop="name">matt</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/addappcn" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/mgt625" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/addapp" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://douban.com/people/pop3g" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              基友们
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wuxiaolong.me/" title="吴小龙同學" target="_blank">吴小龙同學</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-四线格与基线"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 四线格与基线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-canvas-drawText"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. canvas.drawText()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）canvas-drawText-与基线"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">（1）canvas.drawText()与基线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）实例"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">（2）实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结论："><span class="nav-number">1.0.2.3.</span> <span class="nav-text">结论：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-paint-setTextAlign-Paint-Align-XXX"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. paint.setTextAlign(Paint.Align.XXX)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）setTextAlign-Paint-Align-LEFT"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">（1）setTextAlign(Paint.Align.LEFT)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）setTextAlign-Paint-Align-CENTER"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">（2）setTextAlign(Paint.Align.CENTER)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）setTextAlign-Paint-Align-RIGHT"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">（3）setTextAlign(Paint.Align.RIGHT)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）注意"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">（4）注意</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、drawText的四线格与FontMetrics"><span class="nav-number">2.</span> <span class="nav-text">二、drawText的四线格与FontMetrics</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、Text的绘图四线格"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">1、Text的绘图四线格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、FontMetrics"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">2、FontMetrics</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）、fontMetrics概述"><span class="nav-number">2.0.0.2.1.</span> <span class="nav-text">（1）、fontMetrics概述</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）、得到Text四线格的各线位置"><span class="nav-number">2.0.0.2.2.</span> <span class="nav-text">（2）、得到Text四线格的各线位置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）、获取FontMetrics对象"><span class="nav-number">2.0.0.2.3.</span> <span class="nav-text">（3）、获取FontMetrics对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（4）、实例：计算Text四线格位置"><span class="nav-number">2.0.0.2.4.</span> <span class="nav-text">（4）、实例：计算Text四线格位置</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、所绘文字宽度、高度和最小矩形获取"><span class="nav-number">3.</span> <span class="nav-text">三、所绘文字宽度、高度和最小矩形获取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、字符串所占高度和宽度"><span class="nav-number">3.0.1.</span> <span class="nav-text">1、字符串所占高度和宽度</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）、高度"><span class="nav-number">3.0.1.0.1.</span> <span class="nav-text">（1）、高度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）、宽度"><span class="nav-number">3.0.1.0.2.</span> <span class="nav-text">（2）、宽度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）、最小矩形"><span class="nav-number">3.0.1.0.3.</span> <span class="nav-text">（3）、最小矩形</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1、概述"><span class="nav-number">3.0.1.0.4.</span> <span class="nav-text">1、概述</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、得到最小矩形的实际位置"><span class="nav-number">3.0.1.0.5.</span> <span class="nav-text">2、得到最小矩形的实际位置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、实例"><span class="nav-number">3.0.1.0.6.</span> <span class="nav-text">3、实例</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第一部分：设置paint"><span class="nav-number">3.0.1.0.7.</span> <span class="nav-text">第一部分：设置paint</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第二部分：画text所占的区域"><span class="nav-number">3.0.1.0.8.</span> <span class="nav-text">第二部分：画text所占的区域</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第三部分：画最小区域矩形"><span class="nav-number">3.0.1.0.9.</span> <span class="nav-text">第三部分：画最小区域矩形</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第四部分：画文字"><span class="nav-number">3.0.1.0.10.</span> <span class="nav-text">第四部分：画文字</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、定点写字"><span class="nav-number">4.</span> <span class="nav-text">四、定点写字</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、给定左上顶点绘图"><span class="nav-number">4.0.0.0.1.</span> <span class="nav-text">1、给定左上顶点绘图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、给定中间线位置绘图"><span class="nav-number">4.0.0.0.2.</span> <span class="nav-text">2、给定中间线位置绘图</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">matt</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"addapp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
